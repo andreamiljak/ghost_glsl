@@ -8,7 +8,7 @@ export default defineConfig({
         open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open unless on CodeSandbox
     },
     build: {
-        outDir: 'dist',
+        outDir: '../dist',
     },
     plugins: [glsl()]
 });
