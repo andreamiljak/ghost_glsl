@@ -7,5 +7,8 @@ export default defineConfig({
         host: true, // Open to local network and display URL
         open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open unless on CodeSandbox
     },
+    build: {
+        outDir: 'dist',
+    },
     plugins: [glsl()]
 });
