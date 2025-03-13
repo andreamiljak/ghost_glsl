@@ -7,19 +7,22 @@ import GUI from 'lil-gui'
 
 const gui = new GUI({width: 340})
 
+const debugObject = {}
+
 const canvas = document.querySelector('canvas.webgl')
 
 const scene = new THREE.Scene()
 
 const ghostGeometry = new THREE.PlaneGeometry(2, 2, 512, 512)
-
+debugObject.color = "#5c5bc8"            //d9bfdf     b397ba   7a77fd    5c5bc8
 const ghostMaterial = new THREE.ShaderMaterial({ 
     vertexShader: ghostVertexShader,
     fragmentShader: ghostFragmentShader,
     uniforms: {
         uMaxElevation: {value: 3.7},
         uRadius: {value: 1.3},
-        uTime: {value: 0}
+        uTime: {value: 0},
+        uColor: {value: new THREE.Color(debugObject.color)}
     },
     transparent: true
     
@@ -27,6 +30,10 @@ const ghostMaterial = new THREE.ShaderMaterial({
 
 gui.add(ghostMaterial.uniforms.uMaxElevation, 'value').min(0).max(5).step(0.1).name('Max Elevation')
 gui.add(ghostMaterial.uniforms.uRadius, 'value').min(0.5).max(3).step(0.1).name('Roundness')
+gui.addColor(debugObject, 'color').name('Ghost Color').onChange(() => 
+{
+    ghostMaterial.uniforms.uColor.value.set(debugObject.color)
+})
 
 const axes = new THREE.AxesHelper(4)
 scene.add(axes)
